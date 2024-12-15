@@ -1,0 +1,110 @@
+/* contact.module.css */
+
+/* Contact Page */
+.contactPage {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Contact Header */
+.contactHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.contactHeader h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #e8efea;
+}
+
+.contactHeader p {
+  color: #eae0e0;
+}
+
+/* Contact Info Section */
+.contactInfo {
+  margin-bottom: 40px;
+}
+
+.contactInfo h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.contactInfo p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.contactInfo a {
+  color: #fbfbfb;
+  text-decoration: none;
+}
+
+.contactInfo a:hover {
+  text-decoration: underline;
+}
+
+/* Contact Form */
+.contactForm {
+  background-color: #482e2e;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(46, 9, 9, 0.1);
+}
+
+.contactForm h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contactForm .formGroup {
+  margin-bottom: 15px;
+}
+
+.contactForm label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 97%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.contactForm textarea {
+  resize: vertical;
+}
+
+.contactForm .submitBtn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.contactForm .submitBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Contact Page Wrapper with only Gradient Background */
+.contactPageWrapper {
+  background: linear-gradient(135deg, #2e7d32, #66bb6a); /* Gradient colors */
+  min-height: 100vh; /* Ensure the gradient covers the full height */
+  color: white; /* White text to contrast with the gradient */
+}

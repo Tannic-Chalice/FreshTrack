@@ -13,7 +13,9 @@ const Footer: React.FC = () => {
       <button className="footer-button" onClick={() => navigateToPage('contact')}>
         Contact
       </button>
-      <span> | About Us</span>
+      <button className="footer-button" onClick={() => navigateToPage('about_us')}>
+        About Us
+      </button>
     </footer>
   );
 };

@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: Arial MT, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  width: 100%;
+  overflow: hidden;
+}
+
+.header-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.button-box {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 128, 0, 0.6);
+}
+
+.button-box h2 {
+  margin: 0;
+  padding: 10px;
+  background-color: #f8f8f8;
+  font-size: 1.2rem;
+}
+
+.button-image {
+  width: 100%;
+  height: auto;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-button {
+  background-color: transparent;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.footer-button:hover {
+  color: darkblue;
+}

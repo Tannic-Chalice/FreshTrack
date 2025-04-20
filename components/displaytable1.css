@@ -1,0 +1,109 @@
+div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  table {
+    width: 90%; /* Increased width to make the table more spacious */
+    max-width: 1000px; /* Increased max width */
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  thead {
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
+  thead th {
+    text-align: left;
+    padding: 12px 15px;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+  }
+  
+  tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  th, td {
+    text-align: left;
+  }
+  
+  button {
+    margin-left: 8px;
+    padding: 10px 18px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #47698d;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  button:hover {
+    background-color: #333a41;
+  }
+  
+  
+  input[type="text"], 
+  input[type="number"], 
+  input[type="date"] {
+    margin-bottom: 4px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #495057;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  input[type="date"]:focus {
+    border-color: #415264;
+    box-shadow: 0 0 4px #445364;
+  }
+  
+  input[type="text"]:hover,
+  input[type="number"]:hover,
+  input[type="date"]:hover {
+    border-color: #868e96;
+  }
+  
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+  

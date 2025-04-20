@@ -1,0 +1,45 @@
+/* container style */
+.container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* title style */
+  .title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* table style */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th,
+  .table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #c62323;
+  }
+  
+  .table td {
+    background-color: #b75858;
+  }
+  
+  /* list style for freshness status */
+  .freshnessStatusList {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .freshnessStatusList li {
+    padding: 3px 0;
+  }
+  

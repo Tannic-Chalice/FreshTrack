@@ -1,0 +1,99 @@
+/* check-freshness.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #34495e;
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 700px;
+}
+
+.webcamContainer {
+  width: 80%;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.captureButton {
+  background-color: #2e7d32;
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.captureButton:hover {
+  background-color: #388e3c;
+}
+
+.resultContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.resultMessage {
+  font-size: 1.5rem;
+  color: #2e7d32;
+}
+
+.button-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-box:hover {
+  background-color: #3498db;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.button-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.button-box h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #3498db;
+}
+
+.button-box:hover h2 {
+  color: #fff;
+}

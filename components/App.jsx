@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../utils/createClient';
-import styles from './App.module.css'; // Importing styles as a CSS Module
+import axios from 'axios'; // Import axios for making HTTP requests
+import styles from './App.module.css';
 import DisplayTable from './displaytable1';
 
 const App = () => {
@@ -31,9 +31,13 @@ const App = () => {
   }, []);
 
   async function fetchItems() {
-    const { data } = await supabase.from('grocery').select('*');
-    console.log(data); // Log the data to check if it contains all the fields
-    setItems(data);
+    try {
+      const response = await axios.get('http://localhost:5000/api/items'); // Update URL to your Flask API
+      setItems(response.data);
+    } catch (error) {
+      console.error('Error fetching items:', error);
+      alert('Failed to fetch items');
+    }
   }
 
   function handleChange(event) {
@@ -51,44 +55,35 @@ const App = () => {
   }
 
   async function createItem() {
-    await supabase.from('grocery').insert({
-      Item_name: item.Item_name,
-      Category: item.Category,
-      Quantity: item.Quantity,
-      price: item.price,
-      Supplier: item.Supplier,
-      Expiry_date: item.Expiry_date,
-    });
-    fetchItems();
+    try {
+      const response = await axios.post('http://localhost:5000/api/items', item); // POST request to create item
+      fetchItems(); // Reload the items after creation
+      setItem({ Item_name: '', Category: '', Quantity: '', price: '', Supplier: '', Expiry_date: '' });
+    } catch (error) {
+      console.error('Error creating item:', error);
+      alert('Failed to create item');
+    }
   }
 
   async function deleteItem(itemID) {
-    await supabase.from('grocery').delete().eq('id', itemID);
-    fetchItems();
-  }
-
-  function displayItem(itemID) {
-    const item = items.find((item) => item.id === itemID);
-    if (item) {
-      setItemToEdit({ ...item });
-      setIsEditing(true);
+    try {
+      await axios.delete(`http://localhost:5000/api/items/${itemID}`); // DELETE request to remove item
+      fetchItems(); // Reload the items after deletion
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      alert('Failed to delete item');
     }
   }
 
   async function updateItem(itemID) {
-    await supabase
-      .from('grocery')
-      .update({
-        Item_name: itemToEdit.Item_name,
-        Category: itemToEdit.Category,
-        Quantity: itemToEdit.Quantity,
-        price: itemToEdit.price,
-        Supplier: itemToEdit.Supplier,
-        Expiry_date: itemToEdit.Expiry_date,
-      })
-      .eq('id', itemID);
-    fetchItems();
-    setIsEditing(false);
+    try {
+      await axios.put(`http://localhost:5000/api/items/${itemID}`, itemToEdit); // PUT request to update item
+      fetchItems(); // Reload the items after update
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating item:', error);
+      alert('Failed to update item');
+    }
   }
 
   function closeEditForm() {
@@ -109,14 +104,16 @@ const App = () => {
           placeholder="Item Name"
           name="Item_name"
           onChange={handleChange}
+          value={item.Item_name}
           required
-          className={styles.input} // Using styles from the CSS Module
+          className={styles.input}
         />
         <input
           type="text"
           placeholder="Category"
           name="Category"
           onChange={handleChange}
+          value={item.Category}
           required
           className={styles.input}
         />
@@ -125,6 +122,7 @@ const App = () => {
           placeholder="Quantity"
           name="Quantity"
           onChange={handleChange}
+          value={item.Quantity}
           min="0"
           required
           className={styles.input}
@@ -134,6 +132,7 @@ const App = () => {
           placeholder="Price"
           name="price"
           onChange={handleChange}
+          value={item.price}
           step="0.01"
           required
           className={styles.input}
@@ -143,6 +142,7 @@ const App = () => {
           placeholder="Supplier"
           name="Supplier"
           onChange={handleChange}
+          value={item.Supplier}
           required
           className={styles.input}
         />
@@ -151,6 +151,7 @@ const App = () => {
           placeholder="Expiry Date"
           name="Expiry_date"
           onChange={handleChange}
+          value={item.Expiry_date}
           required
           className={styles.input}
         />
@@ -158,7 +159,7 @@ const App = () => {
       </form>
 
       {/* Display Table of Items */}
-      <DisplayTable items={items} deleteItem={deleteItem} displayItem={displayItem} />
+      <DisplayTable items={items} deleteItem={deleteItem} displayItem={setItemToEdit} />
 
       {/* Edit Item Form */}
       {isEditing && (
@@ -168,6 +169,7 @@ const App = () => {
             updateItem(itemToEdit.id);
           }}
         >
+          {/* Same fields as Create Form, but using itemToEdit values */}
           <input
             type="text"
             value={itemToEdit.Item_name}

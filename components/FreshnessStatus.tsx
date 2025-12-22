@@ -14,7 +14,7 @@ interface FreshnessStatusData {
 }
 
 // Connect to the backend server
-const socket: Socket = io('http://localhost:5000');
+const socket: Socket = io('http://127.0.0.1:5000');
 
 const FreshnessStatus: React.FC = () => {
   const [freshness, setFreshness] = useState<string | null>(null);  // freshness could be "fresh" or "rotten"

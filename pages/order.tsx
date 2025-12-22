@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../utils/createClient'; // Supabase client
+import axios from 'axios'; // Axios for HTTP requests
 import Header from '../components/header'; // Import header component
 
 const Order: React.FC = () => {
@@ -10,13 +10,13 @@ const Order: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0); // Calculates total price
 
   useEffect(() => {
-    // Fetch all items from Supabase
+    // Fetch all items from the Flask backend
     const fetchItems = async () => {
-      const { data, error } = await supabase.from('grocery').select('*');
-      if (data) {
-        setItems(data);
-      } else {
-        console.error(error);
+      try {
+        const response = await axios.get('http://127.0.0.1:5000/api/items'); // Replace with your Flask backend URL
+        setItems(response.data);
+      } catch (error) {
+        console.error('Error fetching items:', error);
       }
     };
 
@@ -49,25 +49,33 @@ const Order: React.FC = () => {
 
   const handlePlaceOrder = async () => {
     if (orderItem && quantity > 0) {
-      // Update the item's quantity in Supabase
-      const updatedQuantity = orderItem.Quantity - quantity;
+      try {
+        // Update the item's quantity in PostgreSQL via Flask backend
+        const updatedQuantity = orderItem.Quantity - quantity;
 
-      if (updatedQuantity <= 0) {
-        await supabase.from('grocery').delete().eq('id', orderItem.id); // Delete item if quantity reaches 0
-      } else {
-        await supabase.from('grocery').update({ Quantity: updatedQuantity }).eq('id', orderItem.id); // Update quantity
+        if (updatedQuantity <= 0) {
+          // If quantity is 0 or less, delete the item
+          await axios.delete(`http://127.0.0.1:5000/api/items/${orderItem.id}`);
+        } else {
+          // Otherwise, update the quantity
+          await axios.put(`http://127.0.0.1:5000/api/items/${orderItem.id}`, {
+            Quantity: updatedQuantity,
+          });
+        }
+
+        alert('Order placed successfully!');
+        
+        // Reset form
+        setOrderItem(null);
+        setItemId('');
+        setQuantity(0);
+        setTotalPrice(0);
+
+        // Refresh the page after order is placed
+        window.location.reload();
+      } catch (error) {
+        console.error('Error placing order:', error);
       }
-
-      alert('Order placed successfully!');
-      
-      // Reset form
-      setOrderItem(null);
-      setItemId('');
-      setQuantity(0);
-      setTotalPrice(0);
-
-      // Refresh the page after order is placed
-      window.location.reload();
     }
   };
 

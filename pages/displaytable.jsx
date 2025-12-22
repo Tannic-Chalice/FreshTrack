@@ -1,6 +1,4 @@
-// /pages/index.jsx
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../utils/createClient'; // Import the supabase client
 import DisplayTable from '../components/displaytable'; // Import the DisplayTable component
 import styles from '../styles/displaytable.module.css'; // Import styles
 
@@ -29,9 +27,10 @@ const Index = () => {
     fetchItems();
   }, []);
 
-  // Fetch items from Supabase
+  // Fetch items from the backend
   async function fetchItems() {
-    const { data } = await supabase.from('grocery').select('*');
+    const response = await fetch('http://127.0.0.1:5000/api/items');
+    const data = await response.json();
     setItems(data);
   }
 
@@ -51,22 +50,23 @@ const Index = () => {
     }));
   }
 
-  // Create new item in Supabase
+  // Create new item in PostgreSQL
   async function createItem() {
-    await supabase.from('grocery').insert([{
-      Item_name: item.Item_name,
-      Category: item.Category,
-      Quantity: item.Quantity,
-      price: item.price,
-      Supplier: item.Supplier,
-      Expiry_date: item.Expiry_date,
-    }]);
+    await fetch('http://127.0.0.1:5000/api/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(item),
+    });
     fetchItems();
   }
 
   // Delete an item
   async function deleteItem(itemID) {
-    await supabase.from('grocery').delete().eq('id', itemID);
+    await fetch(`http://127.0.0.1:5000/api/items/${itemID}`, {
+      method: 'DELETE',
+    });
     fetchItems();
   }
 
@@ -79,19 +79,15 @@ const Index = () => {
     }
   }
 
-  // Update an item
+  // Update an item in PostgreSQL
   async function updateItem() {
-    await supabase
-      .from('grocery')
-      .update({
-        Item_name: itemToEdit.Item_name,
-        Category: itemToEdit.Category,
-        Quantity: itemToEdit.Quantity,
-        price: itemToEdit.price,
-        Supplier: itemToEdit.Supplier,
-        Expiry_date: itemToEdit.Expiry_date,
-      })
-      .eq('id', itemToEdit.id);  // Use the itemToEdit.id for the correct record
+    await fetch(`http://127.0.0.1:5000/api/items/${itemToEdit.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(itemToEdit),
+    });
     fetchItems();
     setIsEditing(false);
   }
@@ -124,7 +120,7 @@ const Index = () => {
       {isEditing && (
         <form onSubmit={(e) => {
           e.preventDefault();
-          updateItem(itemToEdit.id);  // Call updateItem without the ID as it's already inside itemToEdit
+          updateItem(); // Call updateItem without the ID as it's already inside itemToEdit
         }}>
           <input type="text" value={itemToEdit.Item_name} name="Item_name" onChange={handleEditChange} required />
           <input type="text" value={itemToEdit.Category} name="Category" onChange={handleEditChange} required />

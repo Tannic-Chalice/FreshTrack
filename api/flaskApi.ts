@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-// URL of your Flask backend (update if needed)
-const API_BASE_URL = "http://127.0.0.1:5000"; 
+// This MUST be localhost for your browser to reach the Docker container
+export const API_BASE_URL = "http://localhost:5000"; 
 
-// Function to upload the image and get the prediction
 export const uploadImageForPrediction = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -15,7 +14,7 @@ export const uploadImageForPrediction = async (file: File) => {
       },
     });
 
-    return response.data.prediction;  // Return the prediction
+    return response.data.prediction;
   } catch (error) {
     console.error("Error uploading image:", error);
     throw error;

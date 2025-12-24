@@ -26,20 +26,16 @@ const AboutUs: React.FC = () => {
             <p>1RV23AI017</p>
           </div>
           <div className="team-member">
-            <h3>Amogh A P</h3>
-            <p>1RV23AI012</p>
-          </div>
-          <div className="team-member">
-            <h3>Anika Vidya Raghav</h3>
-            <p>1RV23AI016</p>
-          </div>
-          <div className="team-member">
-            <h3>Anupama</h3>
+            <h3>Anjali Suresh K</h3>
             <p>1RV23AI018</p>
           </div>
           <div className="team-member">
-            <h3>Bheemraj Doddamani</h3>
-            <p>1RV23AI028</p>
+            <h3>Alroy Deon Saldanha</h3>
+            <p>1RV23AI012</p>
+          </div>
+          <div className="team-member">
+            <h3>Apoorva Krishna</h3>
+            <p>1RV23AI020</p>
           </div>
         </div>
       </section>

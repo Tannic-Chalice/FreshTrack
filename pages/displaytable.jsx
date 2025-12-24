@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DisplayTable from '../components/displaytable'; // Import the DisplayTable component
-import styles from '../styles/displaytable.module.css'; // Import styles
+import styles from '../styles/displaytable.module.css'; // Import styles.
+import { API_BASE_URL } from '../api/flaskApi'; // Import the API base URL
 
 const Index = () => {
   const [items, setItems] = useState([]);
@@ -29,7 +30,7 @@ const Index = () => {
 
   // Fetch items from the backend
   async function fetchItems() {
-    const response = await fetch('http://127.0.0.1:5000/api/items');
+    const response = await fetch(`${API_BASE_URL}/api/items`);
     const data = await response.json();
     setItems(data);
   }
@@ -52,7 +53,7 @@ const Index = () => {
 
   // Create new item in PostgreSQL
   async function createItem() {
-    await fetch('http://127.0.0.1:5000/api/items', {
+    await fetch(`${API_BASE_URL}/api/items`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +65,7 @@ const Index = () => {
 
   // Delete an item
   async function deleteItem(itemID) {
-    await fetch(`http://127.0.0.1:5000/api/items/${itemID}`, {
+    await fetch(`${API_BASE_URL}/api/items/${itemID}`, {
       method: 'DELETE',
     });
     fetchItems();
@@ -81,7 +82,7 @@ const Index = () => {
 
   // Update an item in PostgreSQL
   async function updateItem() {
-    await fetch(`http://127.0.0.1:5000/api/items/${itemToEdit.id}`, {
+    await fetch(`${API_BASE_URL}/api/items/${itemToEdit.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Axios for HTTP requests
 import Header from '../components/header'; // Import header component
+import {API_BASE_URL} from '../api/flaskApi'; // Import API base URL
 
 const Order: React.FC = () => {
   const [items, setItems] = useState<any[]>([]); // Stores all items
@@ -13,7 +14,7 @@ const Order: React.FC = () => {
     // Fetch all items from the Flask backend
     const fetchItems = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/items'); // Replace with your Flask backend URL
+        const response = await axios.get(`${API_BASE_URL}/api/items`); // Replace with your Flask backend URL
         setItems(response.data);
       } catch (error) {
         console.error('Error fetching items:', error);
@@ -48,36 +49,32 @@ const Order: React.FC = () => {
   };
 
   const handlePlaceOrder = async () => {
-    if (orderItem && quantity > 0) {
-      try {
-        // Update the item's quantity in PostgreSQL via Flask backend
-        const updatedQuantity = orderItem.Quantity - quantity;
+  if (orderItem && quantity > 0) {
+    try {
+      const updatedQuantity = orderItem.Quantity - quantity;
 
-        if (updatedQuantity <= 0) {
-          // If quantity is 0 or less, delete the item
-          await axios.delete(`http://127.0.0.1:5000/api/items/${orderItem.id}`);
-        } else {
-          // Otherwise, update the quantity
-          await axios.put(`http://127.0.0.1:5000/api/items/${orderItem.id}`, {
-            Quantity: updatedQuantity,
-          });
-        }
-
-        alert('Order placed successfully!');
-        
-        // Reset form
-        setOrderItem(null);
-        setItemId('');
-        setQuantity(0);
-        setTotalPrice(0);
-
-        // Refresh the page after order is placed
-        window.location.reload();
-      } catch (error) {
-        console.error('Error placing order:', error);
+      if (updatedQuantity <= 0) {
+        await axios.delete(`${API_BASE_URL}/api/items/${orderItem.id}`);
+      } else {
+        // MUST send the full object to satisfy Flask's update_item requirements
+        await axios.put(`${API_BASE_URL}/api/items/${orderItem.id}`, {
+          Item_name: orderItem.Item_name,
+          Category: orderItem.Category,
+          Quantity: updatedQuantity,
+          price: orderItem.price,
+          Supplier: orderItem.Supplier,
+          Expiry_date: orderItem.Expiry_date
+        });
       }
+
+      alert('Order placed successfully!');
+      window.location.reload();
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('Failed to place order. Check console for details.');
     }
-  };
+  }
+};
 
   const handleCancelOrder = () => {
     // Reset form and cancel order

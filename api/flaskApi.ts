@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // This MUST be localhost for your browser to reach the Docker container
-export const API_BASE_URL = "ec2-13-200-249-6.ap-south-1.compute.amazonaws.com"; 
+export const API_BASE_URL = "https://ec2-13-200-249-6.ap-south-1.compute.amazonaws.com"; 
 
 export const uploadImageForPrediction = async (file: File) => {
   const formData = new FormData();
@@ -21,6 +21,7 @@ export const uploadImageForPrediction = async (file: File) => {
   }
 
 };
+
 
 
 

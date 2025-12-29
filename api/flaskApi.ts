@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // This MUST be localhost for your browser to reach the Docker container
-export const API_BASE_URL = "mlop-production.up.railway.app"; 
+export const API_BASE_URL = "arn:aws:ecs:ap-south-1:081047269051:task-definition/elfamily:1"; 
 
 export const uploadImageForPrediction = async (file: File) => {
   const formData = new FormData();
@@ -21,4 +21,5 @@ export const uploadImageForPrediction = async (file: File) => {
   }
 
 };
+
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // This MUST be localhost for your browser to reach the Docker container
-export const API_BASE_URL = "https://mlop-v1.onrender.com"; 
+export const API_BASE_URL = "https://mlop-408537457754.asia-south1.run.app"; 
 
 export const uploadImageForPrediction = async (file: File) => {
   const formData = new FormData();
@@ -21,6 +21,7 @@ export const uploadImageForPrediction = async (file: File) => {
   }
 
 };
+
 
 
 
